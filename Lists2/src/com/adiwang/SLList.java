@@ -66,6 +66,7 @@ public class SLList {
 		L.addLast(20);
 		
 		System.out.println(L.size());
+		System.out.println("updated!");
 		
 	}
 
