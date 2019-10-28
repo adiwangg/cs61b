@@ -25,6 +25,8 @@ public class Planet {
         yyVel = p.yyVel;
         mass = p.mass;
         imgFileName = p.imgFileName;
+
+        //testing
     }
 
 }
