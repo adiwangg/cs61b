@@ -1,3 +1,5 @@
+import examples.StdDraw;
+
 import java.util.Scanner;
 
 public class NBody {
@@ -42,18 +44,33 @@ public class NBody {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the T:");
-        double T = sc.nextDouble();
-        System.out.println("Please enter the dt:");
-        double dt = sc.nextDouble();
-        System.out.println("Please enter the filename:");
-        String filename = sc.nextLine();
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Please enter the T:");
+//        double T = sc.nextDouble();
+//        System.out.println("Please enter the dt:");
+//        double dt = sc.nextDouble();
+//        System.out.println("Please enter the filename:");
+//        String filename = sc.nextLine();
+//
+//        String dir = "./data/planets.txt";
+//        double r = NBody.readRadius(dir);
+//        Planet[] planets = NBody.readPlanets(dir);
 
-        String dir = "./data/planets.txt";
-        double r = NBody.readRadius(dir);
-        Planet[] planets = NBody.readPlanets(dir);
+        String imageToDraw = "finalstate.jpg";
 
+        StdDraw.setScale(-100, 100);
+
+        /* Clears the drawing window. */
+        StdDraw.clear();
+
+        /* Stamps three copies of advice.png in a triangular pattern. */
+        StdDraw.picture(0, 75, imageToDraw);
+        StdDraw.picture(-75, -75, imageToDraw);
+        StdDraw.picture(75, -75, imageToDraw);
+
+        /* Shows the drawing to the screen, and waits 2000 milliseconds. */
+        StdDraw.show();
+        StdDraw.pause(20000);
 
 
     }
