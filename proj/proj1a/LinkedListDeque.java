@@ -50,7 +50,7 @@ public class LinkedListDeque<T> {
             System.out.print(ptr.item);
             System.out.print(" ");
         }
-        System.out.println("");
+        System.out.println();
 
     }
 
@@ -89,20 +89,28 @@ public class LinkedListDeque<T> {
         return ptr.item;
     }
 
+    /** getRecursive helper */
+    private T getRecursive(int index, TNode ptr) {
+        if (index == 0) {
+            return ptr.item;
+        }
+        return getRecursive(index-1,ptr.next);
+    }
+
     public T getRecursive(int index) {
-        return null;
+        return getRecursive(index, sentinel.next);
     }
 
     public static void main(String[] args) {
         LinkedListDeque<String> deque = new LinkedListDeque<>();
+        deque.addFirst("world");
         deque.addFirst("hello");
-        deque.addFirst("world,");
         deque.addLast("Dylan!");
-//        deque.removeFirst();
+        System.out.println(deque.removeLast());
 //        deque.removeLast();
         deque.printDeque();
-        System.out.println(deque.get(5));
-        System.out.println(deque.get(0));
+//        System.out.println(deque.get(5));
+//        System.out.println(deque.get(0));
     }
 
 }
