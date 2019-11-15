@@ -1,6 +1,9 @@
 // TODO: Make sure to make this class a part of the synthesizer package
 package synthesizer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //Make sure this class is public
 public class GuitarString {
     /** Constants. Do not change. In case you're curious, the keyword final means
@@ -18,7 +21,10 @@ public class GuitarString {
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
-        ArrayRingBuffer<Integer> buffer = new ArrayRingBuffer<Integer>((int)Math.round(SR/DECAY));
+        buffer = new ArrayRingBuffer<Double>((int)Math.round(SR/frequency));
+        for (int i = 0; i < buffer.capacity(); i += 1) {
+            buffer.enqueue(0.0);
+        }
     }
 
 
@@ -29,6 +35,22 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
+
+//        Set<Double> set = new HashSet<>();
+//        while (set.size() < buffer.capacity()) {
+//            set.add(Math.random()-0.5);
+//        }
+//        for (int i = 0; i < buffer.fillCount(); i++) {
+//            buffer.dequeue();
+//        }
+//        for (double item : set) {
+//            buffer.enqueue(item);
+//        }
+        for (int i = 0; i < buffer.capacity(); i += 1) {
+            buffer.dequeue();
+            double r = Math.random() - 0.5;
+            buffer.enqueue(r);
+        }
     }
 
     /* Advance the simulation one time step by performing one iteration of
@@ -38,11 +60,24 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
+        double first = buffer.dequeue();
+        double average = 0.5 * (first + buffer.peek());
+        buffer.enqueue(average * DECAY);
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return 0;
+        return buffer.peek();
+    }
+
+    public void print() {
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        GuitarString gs = new GuitarString(4000.0);
+        gs.pluck();
     }
 }

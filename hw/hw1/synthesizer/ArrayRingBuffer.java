@@ -40,6 +40,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
         rb[last] = x;
         last++;
+        if (last == capacity) { last = 0; }
         fillCount++;
     }
 
@@ -55,6 +56,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
         T item = rb[first];
         first++;
+        if (first == capacity) { first = 0; }
         fillCount--;
         return item;
     }
@@ -65,6 +67,39 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
         return rb[first];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DataIterator();
+    }
+
+    private class DataIterator implements Iterator<T> {
+        int ptr;
+        int time;
+
+        public DataIterator() {
+            ptr = first;
+            time = 0;
+        }
+
+        public boolean hasNext() {
+            if (time < fillCount()) {
+                return true;
+            }
+            return false;
+        }
+
+        public T next() {
+            T res = rb[ptr];
+            if (ptr == capacity - 1) {
+                ptr = 0;
+            } else {
+                ptr++;
+            }
+            time++;
+            return res;
+        }
     }
 
     public static void main(String[] args) {
