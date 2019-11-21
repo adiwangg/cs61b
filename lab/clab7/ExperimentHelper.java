@@ -25,7 +25,7 @@ public class ExperimentHelper {
         for (int i = 0; i < count; i++) {
             res += Math.pow(2,i) * i;
         }
-        res += (N - Math.pow(2,count) - 1) * count;
+        res += (N - Math.pow(2,count) + 1) * count;
 
         return res;
     }
@@ -39,10 +39,16 @@ public class ExperimentHelper {
      * @return
      */
     public static double optimalAverageDepth(int N) {
-        return 0;
+        if (N == 0) {
+            return 0;
+        }
+        return (double)optimalIPL(N) / (double)N;
     }
 
     public static void main(String[] args) {
+
+        System.out.println(ExperimentHelper.optimalIPL(2));
         System.out.println(ExperimentHelper.optimalIPL(7));
+        System.out.println(ExperimentHelper.optimalAverageDepth(7));
     }
 }

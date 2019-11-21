@@ -246,4 +246,17 @@ public class BST<Key extends Comparable<Key>> {
     private boolean isEmpty() {
         return size() == 0;
     }
+
+    public double calcAverageDepth() {
+
+        return (double) calcDepth(root,0) / (double) size();
+    }
+
+    public int calcDepth(Node x, int depth) {
+        if (x == null) {
+            return 0;
+        }
+        return depth + calcDepth(x.left, depth + 1) + calcDepth(x.right, depth + 1);
+    }
 }
+
